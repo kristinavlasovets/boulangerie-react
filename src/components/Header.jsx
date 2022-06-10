@@ -5,14 +5,15 @@ export const Header = () => {
     <div className="header">
       <div className="container">
         <div className="header__logo">
-          <img width="38" src="" alt="Pizza logo" />
+          <img width="100px" src="https://images.squarespace-cdn.com/content/v1/5d936f8ed9f11575968c2cad/1576781586665-JU4XHILCYLTMNCRJO9DX/Le+Boutiquier+-+livrables_LB+violet.jpg?format=1500w" alt="Boulangerie logo" />
           <div>
-            <h1>Boulangerie Pâtisserie</h1>
-            <p>88 rue des Martyrs - 75018 PARIS</p>
+            <h1>Boulangerie</h1>
+            <p>88 rue des Martyrs | 75018 PARIS</p>
           </div>
         </div>
 
         <div className="header__cart">
+          <div className=" button button--cart">
           <span>42 €</span>
           <div className="button__delimiter"></div>
           <svg
@@ -44,7 +45,8 @@ export const Header = () => {
               strokeLinejoin="round"
             />
           </svg>
-          <span>TOTAL</span>
+          <span>3</span>
+          </div>
         </div>
       </div>
     </div>
