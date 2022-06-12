@@ -1,16 +1,14 @@
-import React from "react";
-import { Header } from "./components/Header";
-import { Categories } from "./components/Categories";
-import { SortPopup } from "./components/SortPopup";
-import { BreadBlock } from "./components/BreadBlock";
+import React from 'react';
+import { Header } from './components/Header';
+import { Categories } from './components/Categories';
+import { SortPopup } from './components/SortPopup';
+import { BreadBlock } from './components/BreadBlock';
 
-import breads from "./db.json"
+import breads from './db.json';
 
-
-import "./scss/app.scss";
+import './scss/app.scss';
 
 function App() {
-  console.log(breads.breads)
   return (
     <div className="wrapper">
       <Header />
@@ -22,7 +20,9 @@ function App() {
           </div>
           <h2 className="content__title">Products</h2>
           <div className="content__items">
-            {breads && breads.breads.map((obj) => (<BreadBlock title={obj.title} price={obj.price} />))}
+            {breads.map((obj) => (
+              <BreadBlock {...obj} />
+            ))}
           </div>
         </div>
       </div>

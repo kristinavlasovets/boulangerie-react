@@ -1,32 +1,38 @@
-import React, {useState} from "react";
+import React, {useState} from 'react';
 
-export const BreadBlock = ({ title, price }) => {
-  const [breadCount, setBreadCount] = useState(0);
-  const onClickAdd = () => {
-    setBreadCount(breadCount + 1)
-  }
+export const BreadBlock = ({title, price, imageUrl, weight, types}) => {
+  const [activeType, setActiveType] = useState(0);
+  const [activeWeight, setActiveWeight] = useState(0);
+  const typeNames = ['wheat', 'mixed'];
   return (
     <div className="bread-block">
       <h4 className="bread-block__title">{title}</h4>
-      <img
-        className="bread-block__image"
-        src="https://www.campaillette.com/wp-content/uploads/2021/06/img_pointe_paysanne.jpg"
-        alt="Bread"
-      />
+      <img className="bread-block__image" src={imageUrl} alt="Bread" />
       <div className="bread-block__selector">
         <ul>
-          <li className="active">wheat</li>
-          <li className="disabled"> </li>
+          {types.map((typeId) => (
+            <li
+              onClick={() => setActiveType(typeId)}
+              className={activeType === typeId ? 'active' : ''}
+            >
+              {typeNames[typeId]}
+            </li>
+          ))}
         </ul>
         <ul>
-          <li className="active">8 oz.</li>
-          <li className="disabled">12 oz.</li>
-          <li className="disabled">20 oz.</li>
+          {weight.map((value, i) => (
+            <li
+              onClick={() => setActiveWeight(i)}
+              className={activeWeight === i ? 'active' : ''}
+            >
+              {value} oz.
+            </li>
+          ))}
         </ul>
       </div>
       <div className="bread-block__bottom">
         <div className="bread-block__price">from {price} €</div>
-        <button onClick={onClickAdd} className=" button button--outline button--add">
+        <button className=" button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -40,7 +46,7 @@ export const BreadBlock = ({ title, price }) => {
             />
           </svg>
           <span>Add</span>
-          <i>{breadCount}</i>
+          <i>0</i>
         </button>
       </div>
     </div>
