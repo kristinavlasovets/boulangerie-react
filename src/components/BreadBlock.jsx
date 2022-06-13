@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
-export const BreadBlock = ({title, price, imageUrl, weight, types}) => {
+export const BreadBlock = ({ title, price, imageUrl, weight, types }) => {
   const [activeType, setActiveType] = useState(0);
   const [activeWeight, setActiveWeight] = useState(0);
-  const typeNames = ['wheat', 'mixed'];
+  const typeNames = ["wheat", "mixed"];
   return (
     <div className="bread-block">
       <h4 className="bread-block__title">{title}</h4>
@@ -12,8 +12,9 @@ export const BreadBlock = ({title, price, imageUrl, weight, types}) => {
         <ul>
           {types.map((typeId) => (
             <li
+              key={typeId}
               onClick={() => setActiveType(typeId)}
-              className={activeType === typeId ? 'active' : ''}
+              className={activeType === typeId ? "active" : ""}
             >
               {typeNames[typeId]}
             </li>
@@ -22,8 +23,9 @@ export const BreadBlock = ({title, price, imageUrl, weight, types}) => {
         <ul>
           {weight.map((value, i) => (
             <li
+              key={value}
               onClick={() => setActiveWeight(i)}
-              className={activeWeight === i ? 'active' : ''}
+              className={activeWeight === i ? "active" : ""}
             >
               {value} oz.
             </li>
