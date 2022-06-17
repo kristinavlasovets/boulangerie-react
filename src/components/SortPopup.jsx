@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 
-export const SortPopup = () => {
+export const SortPopup = ({ value, onChangeSort }) => {
   const [open, setOpen] = useState(false);
-  const list = ["name", "popularity", "price"];
-  const [selected, setSelected] = useState(0);
-  const selectedCriteria = list[selected]
+  const list = [
+    { name: "name", sort: "title" },
+    { name: "popularity", sort: "rating" },
+    { name: "price", sort: "price"},
+  ];
+
+  const selectedCriteria = list[value];
   const onClickSetSelected = (index) => {
-    setSelected(index);
+    onChangeSort(index);
     setOpen(false);
   };
   return (
@@ -36,7 +40,7 @@ export const SortPopup = () => {
               <li
                 key={index}
                 onClick={() => onClickSetSelected(index)}
-                className={selected === index ? "active" : ""}
+                className={value === index ? "active" : ""}
               >
                 {name}
               </li>
