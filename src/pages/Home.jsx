@@ -8,12 +8,20 @@ export const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = useState(0);
-  const [sortType, setSortType] = useState(0);
+  const [sortType, setSortType] = useState({
+    name: "popularity",
+    sortProperty: "rating",
+  });
 
   useEffect(() => {
     setIsLoading(true);
+
+    const sortBy = sortType.sortProperty.replace("-", "");
+    const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
+    const category = categoryId > 0 ? `category=${categoryId}` : "";
+
     fetch(
-      "https://62a72131bedc4ca6d7c2c681.mockapi.io/items?category=" + categoryId
+      `https://62a72131bedc4ca6d7c2c681.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`
     )
       .then((res) => res.json())
       .then((arr) => {
@@ -30,10 +38,7 @@ export const Home = () => {
           value={categoryId}
           onChangeCategory={(i) => setCategoryId(i)}
         />
-        <SortPopup
-          value={sortType}
-          onChangeSort={(i) => setSortType(i)}
-        />
+        <SortPopup value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
       <h2 className="content__title">Products</h2>
       <div className="content__items">

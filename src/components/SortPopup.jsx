@@ -3,16 +3,17 @@ import React, { useState } from "react";
 export const SortPopup = ({ value, onChangeSort }) => {
   const [open, setOpen] = useState(false);
   const list = [
-    { name: "name", sort: "title" },
-    { name: "popularity", sort: "rating" },
-    { name: "price", sort: "price"},
+    { name: "name", sortProperty: "-title" },
+    { name: "popularity", sortProperty: "rating" },
+    { name: "price: high to low", sortProperty: "price" },
+    { name: "price: low to high", sortProperty: "-price" },
   ];
 
-  const selectedCriteria = list[value];
   const onClickSetSelected = (index) => {
     onChangeSort(index);
     setOpen(false);
   };
+
   return (
     <div className="sort">
       <div className="sort__label">
@@ -30,19 +31,21 @@ export const SortPopup = ({ value, onChangeSort }) => {
           />
         </svg>
         <b>Sort by:</b>
-        <span onClick={() => setOpen(!open)}>{selectedCriteria}</span>
+        <span onClick={() => setOpen(!open)}>{value.name}</span>
       </div>
 
       {open && (
         <div className="sort__popup">
           <ul>
-            {list.map((name, index) => (
+            {list.map((obj, index) => (
               <li
                 key={index}
-                onClick={() => onClickSetSelected(index)}
-                className={value === index ? "active" : ""}
+                onClick={() => onClickSetSelected(obj)}
+                className={
+                  value.sortProperty === obj.sortProperty ? "active" : ""
+                }
               >
-                {name}
+                {obj.name}
               </li>
             ))}
           </ul>
