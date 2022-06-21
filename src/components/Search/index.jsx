@@ -1,12 +1,16 @@
 import React from "react";
+import { useContext } from "react";
+import { SearchContext } from "../../App";
 import styles from "./Search.module.scss";
 
-export const Search = ({ searchValue, setSearchValue }) => {
+export const Search = () => {
+  const { searchValue, setSearchValue } = useContext(SearchContext);
+
   return (
     <div className={styles.root}>
       <img
         className={styles.icon}
-        src="https://cdn4.iconfinder.com/data/icons/basic-user-interface-elements/700/search-zoom-fit-512.png"
+        src="https://cdn-icons-png.flaticon.com/512/54/54481.png"
         alt="search"
       />
       <input
@@ -19,7 +23,7 @@ export const Search = ({ searchValue, setSearchValue }) => {
         <img
           onClick={() => setSearchValue("")}
           className={styles.icon_clear}
-          src="https://cdn4.iconfinder.com/dataon/icons/basic-user-interface-elements/700/exit-delete-remove-close-x-512.png"
+          src="https://cdn-icons.flaticon.com/png/512/2997/premium/2997911.png?token=exp=1655799115~hmac=62d0f4cc1fe5a02e2ea55b586fcb52da"
           alt="clear"
         />
       )}

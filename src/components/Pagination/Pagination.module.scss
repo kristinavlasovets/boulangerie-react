@@ -1,0 +1,18 @@
+.root {
+  li {
+    display: inline-block;
+    justify-content: center;
+    padding-right: 30px;
+    margin-top: 40px;
+    cursor: pointer;
+
+    a {
+      color: #999999;
+      font-size: 18px;
+
+      &:hover {
+        color: #232323;
+      }
+    }
+  }
+}
