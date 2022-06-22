@@ -1,4 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useSelector, useDispatch} from 'react-redux';
+
+import {setCategoryId} from "../redux/slices/filterSlice"
 import { Categories } from "../components/Categories";
 import { SortPopup } from "../components/SortPopup";
 import { BreadBlock } from "../components/BreadBlock";
@@ -7,16 +10,30 @@ import { Pagination } from "../components/Pagination";
 import { SearchContext } from "../App";
 
 export const Home = () => {
+
+  const dispatch = useDispatch();
+  const categoryId = useSelector(state => state.filterSlice.categoryId)
+
+  console.log(categoryId, 'is category id')
+
   const { searchValue } = useContext(SearchContext);
 
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [categoryId, setCategoryId] = useState(0);
+  // const [categoryId, setCategoryId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortType, setSortType] = useState({
     name: "popularity",
     sortProperty: "rating",
   });
+
+  const onChangeCategory = (id) => {
+    console.log(id);
+    dispatch(setCategoryId(id));
+  };
+
+
+
 
   useEffect(() => {
     setIsLoading(true);
@@ -42,7 +59,7 @@ export const Home = () => {
       <div className="content__top">
         <Categories
           value={categoryId}
-          onChangeCategory={(i) => setCategoryId(i)}
+          onChangeCategory={onChangeCategory}
         />
         <SortPopup value={sortType} onChangeSort={(i) => setSortType(i)} />
       </div>
