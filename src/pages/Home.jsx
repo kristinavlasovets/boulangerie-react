@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 
-import {setCategoryId} from "../redux/slices/filterSlice"
+import { setCategoryId} from "../redux/slices/filterSlice";
 import { Categories } from "../components/Categories";
 import { SortPopup } from "../components/SortPopup";
 import { BreadBlock } from "../components/BreadBlock";
@@ -10,36 +10,23 @@ import { Pagination } from "../components/Pagination";
 import { SearchContext } from "../App";
 
 export const Home = () => {
-
   const dispatch = useDispatch();
-  const categoryId = useSelector(state => state.filterSlice.categoryId)
-
-  console.log(categoryId, 'is category id')
+  const {categoryId, sort} = useSelector((state) => state.filter);
 
   const { searchValue } = useContext(SearchContext);
-
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  // const [categoryId, setCategoryId] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortType, setSortType] = useState({
-    name: "popularity",
-    sortProperty: "rating",
-  });
 
   const onChangeCategory = (id) => {
-    console.log(id);
     dispatch(setCategoryId(id));
   };
-
-
-
 
   useEffect(() => {
     setIsLoading(true);
 
-    const sortBy = sortType.sortProperty.replace("-", "");
-    const order = sortType.sortProperty.includes("-") ? "asc" : "desc";
+    const sortBy = sort.sortProperty.replace("-", "");
+    const order = sort.sortProperty.includes("-") ? "asc" : "desc";
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `&search=${searchValue}` : "";
 
@@ -52,16 +39,13 @@ export const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, searchValue, currentPage]);
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   return (
     <div className="container">
       <div className="content__top">
-        <Categories
-          value={categoryId}
-          onChangeCategory={onChangeCategory}
-        />
-        <SortPopup value={sortType} onChangeSort={(i) => setSortType(i)} />
+        <Categories value={categoryId} onChangeCategory={onChangeCategory} />
+        <SortPopup />
       </div>
       <h2 className="content__title">Products</h2>
       <div className="content__items">
