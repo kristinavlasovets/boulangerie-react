@@ -1,10 +1,33 @@
-import React from "react";
-import { useContext } from "react";
+import React, {useState, useContext, useRef} from "react";
+import debounce from "lodash.debounce";
 import { SearchContext } from "../../App";
 import styles from "./Search.module.scss";
+import { useCallback } from "react";
+
 
 export const Search = () => {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
+  const [value, setValue] = useState('');
+  const { setSearchValue } = useContext(SearchContext);
+  const inputRef = useRef();
+
+
+  const onClickClear = () => {
+    setSearchValue('');
+    setValue('');
+    inputRef.current.focus();
+  }
+
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 1000),
+    [],
+  )
+
+  const onChangeInput = (event) => {
+    setValue(event.target.value);
+    updateSearchValue(event.target.value);
+  }
 
   return (
     <div className={styles.root}>
@@ -14,16 +37,17 @@ export const Search = () => {
         alt="search"
       />
       <input
-        value={searchValue}
-        onChange={(event) => setSearchValue(event.target.value)}
+      ref={inputRef}
+        value={value}
+        onChange={onChangeInput}
         className={styles.input}
         placeholder="Search"
       />
-      {searchValue && (
+      {value && (
         <img
-          onClick={() => setSearchValue("")}
+          onClick={onClickClear}
           className={styles.icon_clear}
-          src="https://cdn-icons.flaticon.com/png/512/2997/premium/2997911.png?token=exp=1655799115~hmac=62d0f4cc1fe5a02e2ea55b586fcb52da"
+          src="https://cdn-icons.flaticon.com/png/512/3667/premium/3667999.png?token=exp=1656311455~hmac=764886363e3498aa007525679761c748"
           alt="clear"
         />
       )}
