@@ -1,9 +1,31 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-export const BreadBlock = ({ title, price, imageUrl, weight, types }) => {
+import { addItem } from "../../redux/slices/cartSlice";
+
+export const BreadBlock = ({ id, title, price, imageUrl, weight, types }) => {
+  const dispatch = useDispatch();
+  const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id))
+
   const [activeType, setActiveType] = useState(0);
   const [activeWeight, setActiveWeight] = useState(0);
   const typeNames = ["wheat", "mixed"];
+
+  const addedCount = cartItem ? cartItem.count : 0;
+
+  const onClickAdd = () => {
+
+    const item = {
+      id,
+      title,
+      price,
+      imageUrl,
+      type: typeNames[activeType],
+      weight: activeWeight
+    }
+    dispatch(addItem(item))
+  }
+
   return (
     <div className="bread-block">
       <h4 className="bread-block__title">{title}</h4>
@@ -34,7 +56,7 @@ export const BreadBlock = ({ title, price, imageUrl, weight, types }) => {
       </div>
       <div className="bread-block__bottom">
         <div className="bread-block__price">from {price} €</div>
-        <button className=" button button--outline button--add">
+        <button onClick={onClickAdd} className=" button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -48,7 +70,7 @@ export const BreadBlock = ({ title, price, imageUrl, weight, types }) => {
             />
           </svg>
           <span>Add</span>
-          <i>0</i>
+          <i>{addedCount}</i>
         </button>
       </div>
     </div>
