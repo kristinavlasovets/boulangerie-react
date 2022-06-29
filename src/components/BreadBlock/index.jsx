@@ -70,7 +70,7 @@ export const BreadBlock = ({ id, title, price, imageUrl, weight, types }) => {
             />
           </svg>
           <span>Add</span>
-          <i>{addedCount}</i>
+         { addedCount > 0  && <i>{addedCount}</i>}
         </button>
       </div>
     </div>

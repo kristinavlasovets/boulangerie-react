@@ -1,8 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { CartItem } from "../components/CartItem";
+import { useDispatch, useSelector } from "react-redux";
+import { clearItems } from "../redux/slices/cartSlice";
+import { CartEmpty } from "../components/CartEmpty";
 
 export const Cart = () => {
+
+  const dispatch = useDispatch();
+  const { totalPrice, items }= useSelector((state) => state.cart);
+  const totalCount = items.reduce((sum, item) => sum + item.count, 0)
+
+
+  const onClickClear = () => {
+    if (window.confirm("Are you sure you want to epmty the cart?")) {
+      dispatch(clearItems());
+    }
+  };
+
+
+  if (!totalPrice) {
+    return <CartEmpty />
+  }
+
   return (
     <div className="container container--cart">
       <div className="cart">
@@ -39,7 +59,7 @@ export const Cart = () => {
             </svg>
             Cart
           </h2>
-          <div className="cart__clear">
+          <div onClick={onClickClear} className="cart__clear">
             <svg
               width="20"
               height="20"
@@ -81,15 +101,17 @@ export const Cart = () => {
           </div>
         </div>
         <div className="content__items">
-          <CartItem />
+          {items.map((item) => (
+            <CartItem key={item.id} {...item} />
+          ) )}
         </div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>
-              Total baguettes: <b>10 it.</b>
+              Total baguettes: <b>{totalCount} it.</b>
             </span>
             <span>
-              Order price: <b>220 €</b>
+              Order price: <b>{totalPrice} €</b>
             </span>
           </div>
           <div className="cart__bottom-buttons">
@@ -123,20 +145,9 @@ export const Cart = () => {
         </div>
       </div>
 
-      {/* <div className="cart cart--empty">
-        <h2>
-          Cart is empty <i>😕</i>
-        </h2>
-        <p>
-        Most likely, you have not ordered a baguette yet.
-          <br />
-        To order baguettes, go to the main page.
-        </p>
-        <img src="https://images.squarespace-cdn.com/content/v1/5a986116e22c88d3bdfec687/1519935779909-HACPA3EMMIDM5TR0XRDC/image-asset.png?format=100w" alt="Empty cart" />
-        <Link to="/" className="button button--black">
-          <span>back</span>
-        </Link>
-      </div> */}
+
+
+
     </div>
   );
 };

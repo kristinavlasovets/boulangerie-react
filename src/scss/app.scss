@@ -409,6 +409,7 @@
   }
 
   &--empty {
+    padding-top: 10vh;
     margin: 0 auto;
     width: 560px;
     text-align: center;
@@ -433,7 +434,7 @@
 
     img {
       display: block;
-      width: 300px;
+      width: 180px;
       margin: 45px auto 60px;
     }
 

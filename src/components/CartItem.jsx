@@ -1,30 +1,59 @@
-import React from 'react'
+import React from "react";
+import { useDispatch } from "react-redux";
+import { addItem, minusItem, removeItem } from "../redux/slices/cartSlice";
 
-export const CartItem = () => {
+export const CartItem = ({
+  id,
+  title,
+  type,
+  weight,
+  price,
+  count,
+  imageUrl,
+}) => {
+  const dispatch = useDispatch();
+
+  const onClickPlus = () => {
+    dispatch(
+      addItem({
+        id,
+      })
+    );
+  };
+
+  const onClickMinus = () => {
+    dispatch(minusItem(id));
+  };
+
+  const onClickRemove = () => {
+    if (window.confirm("Are you sure you want to remove this item?")) {
+      dispatch(removeItem(id));
+    }
+  };
+
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img
-          className="pizza-block__image"
-          src="https://www.campaillette.com/wp-content/uploads/2021/06/img_epoca.jpg"
-          alt="Bread"
-        />
+        <img className="pizza-block__image" src={imageUrl} alt="Bread" />
       </div>
       <div className="cart__item-info">
-        <h3>Cecile</h3>
+        <h3>{title}</h3>
         <p>
-          wheat, 12 oz.
+          {type}, {weight} oz.
         </p>
       </div>
       <div className="cart__item-count">
         <div
-          className="button button--outline button--circle cart__item-count-minus">
+          onClick={onClickMinus}
+          className="button button--outline button--circle cart__item-count-minus"
+        >
           <svg
             width="10"
             height="10"
             viewBox="0 0 10 10"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z"
               fill="#EB5A1E"
@@ -35,15 +64,18 @@ export const CartItem = () => {
             />
           </svg>
         </div>
-        <b>5 it.</b>
+        <b>{count} it.</b>
         <div
-          className="button button--outline button--circle cart__item-count-plus">
+          onClick={onClickPlus}
+          className="button button--outline button--circle cart__item-count-plus"
+        >
           <svg
             width="10"
             height="10"
             viewBox="0 0 10 10"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z"
               fill="#EB5A1E"
@@ -56,16 +88,17 @@ export const CartItem = () => {
         </div>
       </div>
       <div className="cart__item-price">
-        <b>18 €</b>
+        <b>{price} €</b>
       </div>
-      <div className="cart__item-remove">
+      <div onClick={onClickRemove} className="cart__item-remove">
         <div className=" button button--circle" outline>
           <svg
             width="10"
             height="10"
             viewBox="0 0 10 10"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M5.92001 3.84V5.76V8.64C5.92001 9.17016 5.49017 9.6 4.96001 9.6C4.42985 9.6 4.00001 9.17016 4.00001 8.64L4 5.76L4.00001 3.84V0.96C4.00001 0.42984 4.42985 0 4.96001 0C5.49017 0 5.92001 0.42984 5.92001 0.96V3.84Z"
               fill="#EB5A1E"
@@ -78,6 +111,5 @@ export const CartItem = () => {
         </div>
       </div>
     </div>
-  )
-}
-
+  );
+};
