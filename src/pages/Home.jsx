@@ -1,26 +1,26 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
-import qs from "qs";
-import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState, useContext, useRef} from 'react';
+import qs from 'qs';
+import axios from 'axios';
+import {useSelector, useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 
 import {
   setCategoryId,
   setCurrentPage,
   setFilters,
-} from "../redux/slices/filterSlice";
-import { Categories } from "../components/Categories";
-import { SortPopup } from "../components/SortPopup";
-import { BreadBlock } from "../components/BreadBlock";
-import { Skeleton } from "../components/BreadBlock/Skeleton";
-import { Pagination } from "../components/Pagination";
-import { SearchContext } from "../App";
+} from '../redux/slices/filterSlice';
+import {Categories} from '../components/Categories';
+import {SortPopup} from '../components/SortPopup';
+import {BreadBlock} from '../components/BreadBlock';
+import {Skeleton} from '../components/BreadBlock/Skeleton';
+import {Pagination} from '../components/Pagination';
+import {SearchContext} from '../App';
 
 const list = [
-  { name: "name", sortProperty: "-title" },
-  { name: "popularity", sortProperty: "rating" },
-  { name: "price: high to low", sortProperty: "price" },
-  { name: "price: low to high", sortProperty: "-price" },
+  {name: 'name', sortProperty: '-title'},
+  {name: 'popularity', sortProperty: 'rating'},
+  {name: 'price: high to low', sortProperty: 'price'},
+  {name: 'price: low to high', sortProperty: '-price'},
 ];
 
 export const Home = () => {
@@ -29,11 +29,9 @@ export const Home = () => {
   const isSearch = useRef();
   const isMounted = useRef();
 
-  const { categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter
-  );
+  const {categoryId, sort, currentPage} = useSelector((state) => state.filter);
 
-  const { searchValue } = useContext(SearchContext);
+  const {searchValue} = useContext(SearchContext);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -45,24 +43,37 @@ export const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const fetchGoods = () => {
+  const fetchGoods = async () => {
     setIsLoading(true);
 
-    const sortBy = sort.sortProperty.replace("-", "");
-    const order = sort.sortProperty.includes("-") ? "asc" : "desc";
-    const category = categoryId > 0 ? `category=${categoryId}` : "";
-    const search = searchValue ? `&search=${searchValue}` : "";
+    const sortBy = sort.sortProperty.replace('-', '');
+    const order = sort.sortProperty.includes('-') ? 'asc' : 'desc';
+    const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const search = searchValue ? `&search=${searchValue}` : '';
 
-    axios
-      .get(
+    //   await axios
+    //     .get(
+    //       `https://62a72131bedc4ca6d7c2c681.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
+    //     )
+    //     .then((res) => {
+    //       setItems(res.data);
+    //       setIsLoading(false);
+    //       console.log(6666  )
+    //     });
+
+    try {
+      const res = await axios.get(
         `https://62a72131bedc4ca6d7c2c681.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
-      )
-      .then((res) => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
-  };
+      );
+      setItems(res.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.log('ERROR', error);
+    }
 
+    window.scrollTo(0, 0);
+  };
 
   useEffect(() => {
     if (isMounted.current) {
@@ -76,7 +87,7 @@ export const Home = () => {
     }
     isMounted.current = true;
   }, [categoryId, sort.sortProperty, currentPage]);
-  
+
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
@@ -101,7 +112,6 @@ export const Home = () => {
     }
     isSearch.current = false;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
-
 
   return (
     <div className="container">
