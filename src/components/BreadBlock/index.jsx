@@ -21,7 +21,7 @@ export const BreadBlock = ({ id, title, price, imageUrl, weight, types }) => {
       price,
       imageUrl,
       type: typeNames[activeType],
-      weight: activeWeight
+      weight: weight[activeWeight],
     }
     dispatch(addItem(item))
   }
