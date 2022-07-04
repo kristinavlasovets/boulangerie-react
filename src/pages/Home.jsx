@@ -1,15 +1,15 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import qs from "qs";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
+  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
 } from "../redux/slices/filterSlice";
-import { fetchBread } from "../redux/slices/breadSlice";
+import { fetchBread, selectBreadData } from "../redux/slices/breadSlice";
 
 import { Categories } from "../components/Categories";
 import { SortPopup } from "../components/SortPopup";
@@ -31,12 +31,8 @@ export const Home = () => {
   const isSearch = useRef();
   const isMounted = useRef();
 
-  const {items, status } = useSelector((state) => state.bread);
-  const { categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter
-  );
-
-  const { searchValue } = useContext(SearchContext);
+  const {items, status } = useSelector(selectBreadData);
+  const { categoryId, sort, currentPage, searchValue} = useSelector(selectFilter);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));

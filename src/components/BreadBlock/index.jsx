@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addItem } from "../../redux/slices/cartSlice";
+import { addItem, selectCartItemById } from "../../redux/slices/cartSlice";
 
 export const BreadBlock = ({ id, title, price, imageUrl, weight, types }) => {
   const dispatch = useDispatch();
-  const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id))
+  const cartItem = useSelector(selectCartItemById(id))
 
   const [activeType, setActiveType] = useState(0);
   const [activeWeight, setActiveWeight] = useState(0);

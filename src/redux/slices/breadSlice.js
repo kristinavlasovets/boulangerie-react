@@ -3,12 +3,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchBread = createAsyncThunk(
   "bread/fetchBreadStatus",
-  async (params) => {
-    const { currentPage, sortBy, order, category, search } = params;
+  async (params, thunkAPI) => {
+    const { sortBy, order, category, search, currentPage } = params;
 
     const { data } = await axios.get(
       `https://62a72131bedc4ca6d7c2c681.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`
     );
+
     return data;
   }
 );
@@ -42,6 +43,8 @@ const breadSlice = createSlice({
   },
 });
 
+export const selectBreadData = (state) => state.bread;
+ 
 export const { setItems } = breadSlice.actions;
 
 export default breadSlice.reducer;

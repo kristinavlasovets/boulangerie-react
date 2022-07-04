@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setSort } from "../redux/slices/filterSlice";
+import { selectSort, setSort } from "../redux/slices/filterSlice";
 
 const list = [
   { name: "name", sortProperty: "-title" },
@@ -14,7 +14,7 @@ const list = [
 
 export const SortPopup = () => {
   const dispatch = useDispatch();
-  const sort = useSelector((state) => state.filter.sort);
+  const sort = useSelector(selectSort);
   const sortRef = useRef();
 
   const [open, setOpen] = useState(false);
