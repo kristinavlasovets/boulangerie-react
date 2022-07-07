@@ -5,7 +5,7 @@ import { addItem, selectCartItemById } from "../../redux/slices/cartSlice";
 
 export const BreadBlock = ({ id, title, price, imageUrl, weight, types }) => {
   const dispatch = useDispatch();
-  const cartItem = useSelector(selectCartItemById(id))
+  const cartItem = useSelector(selectCartItemById(id));
 
   const [activeType, setActiveType] = useState(0);
   const [activeWeight, setActiveWeight] = useState(0);
@@ -14,7 +14,6 @@ export const BreadBlock = ({ id, title, price, imageUrl, weight, types }) => {
   const addedCount = cartItem ? cartItem.count : 0;
 
   const onClickAdd = () => {
-
     const item = {
       id,
       title,
@@ -22,9 +21,9 @@ export const BreadBlock = ({ id, title, price, imageUrl, weight, types }) => {
       imageUrl,
       type: typeNames[activeType],
       weight: weight[activeWeight],
-    }
-    dispatch(addItem(item))
-  }
+    };
+    dispatch(addItem(item));
+  };
 
   return (
     <div className="bread-block">
@@ -56,7 +55,10 @@ export const BreadBlock = ({ id, title, price, imageUrl, weight, types }) => {
       </div>
       <div className="bread-block__bottom">
         <div className="bread-block__price">from {price} €</div>
-        <button onClick={onClickAdd} className=" button button--outline button--add">
+        <button
+          onClick={onClickAdd}
+          className=" button button--outline button--add"
+        >
           <svg
             width="12"
             height="12"
@@ -70,7 +72,7 @@ export const BreadBlock = ({ id, title, price, imageUrl, weight, types }) => {
             />
           </svg>
           <span>Add</span>
-         { addedCount > 0  && <i>{addedCount}</i>}
+          {addedCount > 0 && <i>{addedCount}</i>}
         </button>
       </div>
     </div>

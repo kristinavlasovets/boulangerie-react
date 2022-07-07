@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import qs from "qs";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   selectFilter,
@@ -16,23 +16,23 @@ import { SortPopup } from "../components/SortPopup";
 import { BreadBlock } from "../components/BreadBlock";
 import { Skeleton } from "../components/BreadBlock/Skeleton";
 import { Pagination } from "../components/Pagination";
-import { SearchContext } from "../App";
 
-const list = [
-  { name: "name", sortProperty: "-title" },
-  { name: "popularity", sortProperty: "rating" },
-  { name: "price: high to low", sortProperty: "price" },
-  { name: "price: low to high", sortProperty: "-price" },
-];
+// const list = [
+//   { name: "name", sortProperty: "-title" },
+//   { name: "popularity", sortProperty: "rating" },
+//   { name: "price: high to low", sortProperty: "price" },
+//   { name: "price: low to high", sortProperty: "-price" },
+// ];
 
 export const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = useRef();
-  const isMounted = useRef();
+  const isMounted = useRef(false);
 
-  const {items, status } = useSelector(selectBreadData);
-  const { categoryId, sort, currentPage, searchValue} = useSelector(selectFilter);
+  const { items, status } = useSelector(selectBreadData);
+  const { categoryId, sort, currentPage, searchValue } =
+    useSelector(selectFilter);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -57,35 +57,29 @@ export const Home = () => {
         search,
       })
     );
+    window.scrollTo(0, 0);
   };
 
   useEffect(() => {
     if (isMounted.current) {
-      const queryString = qs.stringify({
-        categoryId,
+      const params = {
+        categoryId: categoryId > 0 ? categoryId : null,
         sortProperty: sort.sortProperty,
         currentPage,
-      });
+      };
 
-      navigate(`?${queryString}`);
+      const queryString = qs.stringify(params, { skipNulls: true });
+      navigate(`/?${queryString}`);
     }
-    isMounted.current = true;
+
+    if (!window.location.search) {
+      console.log(111);
+      fetchBread();
+    }
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   useEffect(() => {
-    if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
-
-      const sort = list.find((obj) => obj.sortProperty === params.sortProperty);
-
-      dispatch(
-        setFilters({
-          ...params,
-          sort,
-        })
-      );
-      isSearch.current = true;
-    }
+    fetchGoods();
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   useEffect(() => {
@@ -95,10 +89,16 @@ export const Home = () => {
       fetchGoods();
     }
     isSearch.current = false;
-  }, [] );
+  }, []);
 
-  const breads = items.map((obj) => <BreadBlock key={obj.id} {...obj} />);
-  const skeletons =  [...new Array(8)].map((_, index) => <Skeleton key={index} />);
+  const breads = items.map((obj) => (
+    <Link key={obj.id} to={`/bread/${obj.id}`}>
+      <BreadBlock {...obj} />
+    </Link>
+  ));
+  const skeletons = [...new Array(8)].map((_, index) => (
+    <Skeleton key={index} />
+  ));
 
   return (
     <div className="container">
@@ -108,9 +108,7 @@ export const Home = () => {
       </div>
       <h2 className="content__title">Products</h2>
       <div className="content__items">
-        {status === 'loading'
-          ? skeletons
-          : breads}
+        {status === "loading" ? skeletons : breads}
       </div>
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>

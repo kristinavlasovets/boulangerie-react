@@ -1,6 +1,6 @@
 [
   {
-    "id": 0,
+    "id": "0",
     "imageUrl": "https://www.campaillette.com/wp-content/uploads/2021/06/img_epoca.jpg",
     "title": "Epoca",
     "types": [0, 1],
@@ -10,7 +10,7 @@
     "rating": 5
   },
   {
-    "id": 1,
+    "id": "1",
     "imageUrl": "https://www.campaillette.com/wp-content/uploads/2021/06/img_grand_siecle.jpg",
     "title": "Grand Siècle",
     "types": [0, 1],
@@ -20,7 +20,7 @@
     "rating": 5
   },
   {
-    "id": 2,
+    "id": "2",
     "imageUrl": "https://www.campaillette.com/wp-content/uploads/2021/06/img_ceraine.jpg",
     "title": "Céraine",
     "types": [0, 2],
@@ -30,7 +30,7 @@
     "rating": 4
   },
   {
-    "id": 3,
+    "id": "3",
     "imageUrl": "https://www.campaillette.com/wp-content/uploads/2021/06/img_sarmentine.jpg",
     "title": "Sarmentine",
     "types": [0, 1],
@@ -40,7 +40,7 @@
     "rating": 5
   },
   {
-    "id": 4,
+    "id": "4",
     "imageUrl": "https://www.campaillette.com/wp-content/uploads/2021/06/img_pointe_paysanne.jpg",
     "title": "Pointe Paysanne",
     "types": [0, 1],
@@ -50,7 +50,7 @@
     "rating": 5
   },
   {
-    "id": 5,
+    "id": "5",
     "imageUrl": "https://www.campaillette.com/wp-content/uploads/2021/06/img_bio.jpg",
     "title": "Bio",
     "types": [0, 1],
@@ -60,7 +60,7 @@
     "rating": 5
   },
   {
-    "id": 6,
+    "id": "6",
     "imageUrl": "https://www.campaillette.com/wp-content/uploads/2021/06/img_froment.jpg",
     "title": "Froment",
     "types": [0, 1],
@@ -70,7 +70,7 @@
     "rating": 5
   },
   {
-    "id": 7,
+    "id": "7",
     "imageUrl": "https://www.campaillette.com/wp-content/uploads/2021/06/img_des_champs.jpg",
     "title": "Des Champs",
     "types": [0, 1],
