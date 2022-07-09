@@ -1,12 +1,12 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import { Header } from "./components/Header";
-import { Home } from "./pages/Home";
-import { Cart } from "./pages/Cart";
-import { FullBread } from "./pages/FullBread";
-import { NotFound } from "./pages/NotFound";
+import React from 'react';
+import {Routes, Route} from 'react-router-dom';
+import {Header} from './components/Header';
+import {Home} from './pages/Home';
+import {Cart} from './pages/Cart';
+import {FullBread} from './pages/FullBread.tsx';
+import {NotFound} from './pages/NotFound';
 
-import "./scss/app.scss";
+import './scss/app.scss';
 
 function App() {
   return (
