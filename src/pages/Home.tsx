@@ -11,20 +11,13 @@ import {
 } from "../redux/slices/filterSlice";
 import { fetchBread, selectBreadData } from "../redux/slices/breadSlice";
 
-import { Categories } from "../components/Categories";
-import { SortPopup } from "../components/SortPopup";
-import { BreadBlock } from "../components/BreadBlock";
+import { Categories } from "../components/Categories.tsx";
+import { SortPopup } from "../components/SortPopup.tsx";
+import { BreadBlock } from "../components/BreadBlock/index.tsx";
 import { Skeleton } from "../components/BreadBlock/Skeleton";
-import { Pagination } from "../components/Pagination";
+import { Pagination } from "../components/Pagination/index.tsx";
 
-// const list = [
-//   { name: "name", sortProperty: "-title" },
-//   { name: "popularity", sortProperty: "rating" },
-//   { name: "price: high to low", sortProperty: "price" },
-//   { name: "price: low to high", sortProperty: "-price" },
-// ];
-
-export const Home = () => {
+export const Home: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = useRef();

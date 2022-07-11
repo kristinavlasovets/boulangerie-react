@@ -2,7 +2,17 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { addItem, minusItem, removeItem } from "../redux/slices/cartSlice";
 
-export const CartItem = ({
+type CartItemProps = {
+  id: string,
+  title: string,
+  type: string,
+  weight: number,
+  price: number,
+  count: number,
+  imageUrl: string,
+};
+
+export const CartItem: React.FC <CartItemProps> = ({
   id,
   title,
   type,
@@ -91,7 +101,7 @@ export const CartItem = ({
         <b>{price} €</b>
       </div>
       <div onClick={onClickRemove} className="cart__item-remove">
-        <div className=" button button--circle" outline>
+        <div className=" button button--circle" >
           <svg
             width="10"
             height="10"

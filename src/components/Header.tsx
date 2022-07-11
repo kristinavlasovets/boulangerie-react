@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Search } from "./Search";
+import { Search } from "./Search/index.tsx";
 import { selectCart } from "../redux/slices/cartSlice";
 
 export const Header = ({searchValue, setSearchValue}) => {
