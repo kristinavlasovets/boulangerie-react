@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addItem, selectCartItemById } from "../../redux/slices/cartSlice";
+import { addItem, CartItem, selectCartItemById } from "../../redux/slices/cartSlice";
 
 type BreadBlockProps = {
   id: string;
@@ -31,13 +31,14 @@ export const BreadBlock: React.FC<BreadBlockProps> = ({
   const addedCount = cartItem ? cartItem.count : 0;
 
   const onClickAdd = () => {
-    const item = {
+    const item: CartItem = {
       id,
       title,
       price,
       imageUrl,
       type: typeNames[activeType],
       weight: weight[activeWeight],
+      count: 0,
     };
     dispatch(addItem(item));
   };

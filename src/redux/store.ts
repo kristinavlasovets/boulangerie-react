@@ -10,3 +10,6 @@ export const store = configureStore({
     bread: breadSlice,
   },
 });
+
+
+export type RootState = ReturnType<typeof store.getState>;
