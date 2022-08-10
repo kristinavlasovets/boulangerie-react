@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { addItem, selectCartItemById } from "../../redux/slices/cartSlice";
 
@@ -27,8 +28,11 @@ export const BreadBlock = ({ id, title, price, imageUrl, weight, types }) => {
 
   return (
     <div className="bread-block">
-      <h4 className="bread-block__title">{title}</h4>
-      <img className="bread-block__image" src={imageUrl} alt="Bread" />
+      <Link key={id} to={`/bread/${id}`}>
+        <h4 className="bread-block__title">{title}</h4>
+        <img className="bread-block__image" src={imageUrl} alt="Bread" />
+      </Link>
+
       <div className="bread-block__selector">
         <ul>
           {types.map((typeId) => (

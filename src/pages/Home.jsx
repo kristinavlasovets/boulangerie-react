@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import qs from "qs";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   selectFilter,
@@ -16,13 +16,6 @@ import { SortPopup } from "../components/SortPopup";
 import { BreadBlock } from "../components/BreadBlock";
 import { Skeleton } from "../components/BreadBlock/Skeleton";
 import { Pagination } from "../components/Pagination";
-
-// const list = [
-//   { name: "name", sortProperty: "-title" },
-//   { name: "popularity", sortProperty: "rating" },
-//   { name: "price: high to low", sortProperty: "price" },
-//   { name: "price: low to high", sortProperty: "-price" },
-// ];
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -73,7 +66,6 @@ export const Home = () => {
     }
 
     if (!window.location.search) {
-      console.log(111);
       fetchBread();
     }
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
@@ -91,11 +83,7 @@ export const Home = () => {
     isSearch.current = false;
   }, []);
 
-  const breads = items.map((obj) => (
-    <Link key={obj.id} to={`/bread/${obj.id}`}>
-      <BreadBlock {...obj} />
-    </Link>
-  ));
+  const breads = items.map((obj) => <BreadBlock {...obj} />);
   const skeletons = [...new Array(8)].map((_, index) => (
     <Skeleton key={index} />
   ));
