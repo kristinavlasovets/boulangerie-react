@@ -25,13 +25,12 @@ export const FullBread = () => {
   if (!bread) {
     return 'Loading...'
   }
-  console.log(bread);
-
   return (
     <div className="container">
-      <img src={bread.imageUrl} alt="bread" />
       <h2>{bread.title}</h2>
       <h4>{bread.price} €</h4>
+      <img src={bread.imageUrl} alt="bread" />
+      
     </div>
   );
 };
