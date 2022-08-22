@@ -7,7 +7,6 @@ import {
   selectFilter,
   setCategoryId,
   setCurrentPage,
-  setFilters,
 } from "../redux/slices/filterSlice";
 import { fetchBread, selectBreadData } from "../redux/slices/breadSlice";
 
@@ -83,7 +82,7 @@ export const Home = () => {
     isSearch.current = false;
   }, []);
 
-  const breads = items.map((obj) => <BreadBlock {...obj} />);
+  const breads = items.map((obj) => <BreadBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(8)].map((_, index) => (
     <Skeleton key={index} />
   ));

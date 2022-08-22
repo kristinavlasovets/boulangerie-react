@@ -2,19 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   totalPrice: 0,
-  items: [],
+  items: JSON.parse(localStorage.getItem('cart')) || [],
 };
 
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    // addItem(state, action) {
-    //   state.items.push(action.payload);
-    //   state.totalPrice = state.items.reduce((sum, obj) => {
-    //     return obj.price + sum;
-    //   }, 0)
-    // },
     addItem(state, action) {
       const findItem = state.items.find((obj) => obj.id === action.payload.id);
       if (findItem) {
@@ -28,13 +22,19 @@ export const cartSlice = createSlice({
           }, 0)
     },
     removeItem(state, action) {
-      state.items = state.items.filter((obj) => obj.id === action.payload);
+      state.items = state.items.filter((obj) => obj.id !== action.payload);
+      state.totalPrice = state.items.reduce((sum, obj) => {
+        return (obj.price * obj.count) + sum;
+      }, 0)
     },
     minusItem(state, action) {
       const findItem = state.items.find((obj) => obj.id === action.payload);
       if (findItem) {
         findItem.count--;
       }
+      state.totalPrice = state.items.reduce((sum, obj) => {
+        return (obj.price * obj.count) + sum;
+      }, 0)
     },
     clearItems(state) {
       state.items = [];

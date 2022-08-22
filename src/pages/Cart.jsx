@@ -11,7 +11,7 @@ export const Cart = () => {
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 
   const onClickClear = () => {
-    if (window.confirm("Are you sure you want to epmty the cart?")) {
+    if (window.confirm("Are you sure you want to empty the cart?")) {
       dispatch(clearItems());
     }
   };
@@ -112,7 +112,7 @@ export const Cart = () => {
             </span>
           </div>
           <div className="cart__bottom-buttons">
-            <a
+            <div
               href="/"
               className="button button--outline button--add go-back-btn"
             >
@@ -134,7 +134,7 @@ export const Cart = () => {
               <Link to="/">
                 <span>Back to shop</span>
               </Link>
-            </a>
+            </div>
             <div className="button pay-btn">
               <span>Checkout</span>
             </div>
